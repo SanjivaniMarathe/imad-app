@@ -7,5 +7,5 @@ element.innerHTML = 'Welcome !';
 //Move the image
 var img = document.getElementByID('img');
 img.onclick = function() {
-    img.style.marginleft = '100px';
+    img.style.marginleft = '300px';
 };
