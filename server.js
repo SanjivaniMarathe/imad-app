@@ -119,7 +119,7 @@ app.get('/article-three', function(req, res) {
     res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
 }); */
 
-/*var pool = new Pool(config);
+/* var pool = new Pool(config);
 app.get('/test.db', function(req,res) {
     //Make a select request
     //Return a response with the result
@@ -131,12 +131,12 @@ app.get('/test.db', function(req,res) {
         }
     })
 });
-
+*/
 var counter=0;
 app.get('/counter', function (req, res) {
     counter = counter + 1;
     res.send(counter.toString());
-}); */
+});
 
 app.get('/ui/style.css', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'style.css'));
