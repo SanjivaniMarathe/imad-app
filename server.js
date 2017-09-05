@@ -2,41 +2,65 @@ var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
 
-var Pool = require('pg').Pool;
+/*var Pool = require('pg').Pool;
 var config = {
     user : 'sumudm',
     database : 'sumudm',
     host : 'db.imad.hasura-app.io',
     port : '5432',
     password : process.env.DB_PASSWORD
-};
+};  */
 
 var app = express();
 app.use(morgan('combined'));
 
-var articleOne = {
-    title: 'Article-one by Sanjivani',
-    heading: 'article-one',
-    date: 'September 5, 2017',
-    content:
-    `<p>
-        Para 1 :
-        This is the content of my first article
-        This is the content of my first article
-        This is the content of my first article
-    </p>
-    <p>
-        Para 2 :
-        This is the content of my first article
-        This is the content of my first article
-        This is the content of my first article
-    </p>
-    <p>
-        Para 3 :
-        This is the content of my first article
-        This is the content of my first article
-        This is the content of my first article
-    </p>`
+
+var articles = {
+   'article-one': {
+        title: 'Article-one by Sanjivani',
+        heading: 'article-one',
+        date: 'September 5, 2017',
+        content:
+        `<p>
+            Para 1 :
+            This is the content of my first article
+            This is the content of my first article
+            This is the content of my first article
+        </p>
+        <p>
+            Para 2 :
+            This is the content of my first article
+            This is the content of my first article
+            This is the content of my first article
+        </p>
+        <p>
+            Para 3 :
+            This is the content of my first article
+            This is the content of my first article
+            This is the content of my first article
+        </p>`
+    },
+   'article-two': {
+        title: 'Article-two by Sanjivani',
+        heading: 'article-two',
+        date: 'September 10, 2017',
+        content:
+        `<p>
+            Para 1 :
+            This is the content of my second article
+        </p> `
+    },
+   'article-three': {
+        title: 'Article-three by Sanjivani',
+        heading: 'article-three',
+        date: 'September 15, 2017',
+        content:
+        `<p>
+            Para 1 :
+            This is the content of my third article
+            This is amazing
+        </p> `
+    }
 };
 
 function createTemplate (data) {
@@ -80,17 +104,20 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
 });
 
-app.get('/article-one', function(req, res) {
-    res.send(createTemplate(articleOne));
+app.get('/:articleName', function(req, res) {
+    //articleName == article-one
+    //articles(articleName) == {} content object for article-one
+    var articleName = req.params.articleName;
+    res.send(createTemplate(articles[articleName]));
 });
 
-app.get('/article-two', function(req, res) {
+/*app.get('/article-two', function(req, res) {
     res.sendFile(path.join(__dirname, 'ui', 'article-two.html'));
 });
 
 app.get('/article-three', function(req, res) {
     res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
-});
+}); */
 
 var pool = new Pool(config);
 app.get('/test.db', function(req,res) {
