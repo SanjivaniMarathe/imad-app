@@ -27,7 +27,7 @@ app.get('/article-two', function(req, res) {
 });
 
 app.get('/article-three', function(req, res) {
-    res.send('Article-three requested & will be served here');
+    res.sendFile(path.join(__dirname, 'ui', 'article-three.html'));
 });
 
 var pool = new Pool(config);
